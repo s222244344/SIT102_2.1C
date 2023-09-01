@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .pinkBG {
+      background-color: lightpink;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 600px;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+    <div v-bind:class="vueClass">This is my page that displays my use of Vue concepts, the pink box around this text is
+      one example!</div>
+
+    
+    <div class="input-container">
+      <label for="message-input">Message: </label>
+      <input id="message-input" type="text" v-model="message">
+      <p>Message: {{ message }}</p>
+    </div>
+
+    <table>
+      <tr>
+        <th>Directive</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>v-show</td>
+        <td>
+          <h1 v-show="ok">Hello! Welcome to my page</h1>
+        </td>
+      </tr>
+      <tr>
+        <td>v-if with v-for</td>
+        <td>
+          <div v-for="(product, index) in products" :key="index">
+            <p v-if="product.count > 0">{{ product.name }}: In stock</p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>v-else-if, v-else</td>
+        <td>
+          <div v-for="(product, index) in products" :key="index">
+            <p v-if="product.count > 3">In stock</p>
+            <p v-else-if="product.count > 0">Very few left!</p>
+            <p v-else>Not in stock</p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>v-for</td>
+        <td>
+          <ol>
+            <li v-for="x in sports">{{ x }}</li>
+          </ol>
+        </td>
+      </tr>
+      <tr>
+        <td>Multiple v-for</td>
+        <td>
+          <p v-for="(x, index) in sports">
+            {{ index }}: "{{ x }}" <br>
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <figure v-for="x in sports">
+      <img v-bind:src="x.url">
+      <figcaption>{{ x.name }}</figcaption>
+    </figure>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          vueClass: "pinkBG",
+          motorcyclesinstock: true,
+          typewriterCount: 1,
+          sports: [
+            'Basketball',
+            'Baseball',
+            'Football',
+            'Footy',
+            'NFL',
+            'Volleyball',
+            'Badminton'
+          ],
+          ok: true, // for v-show
+          message: "Hello, Vue!" // New message property
+        };
+      }
+    });
+    app.mount('#app');
+  </script>
+</body>
+
+</html>

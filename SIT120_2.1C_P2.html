@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Your CSS styles here */
+  </style>
+</head>
+<body>
+
+<div id="app">
+ 
+
+  <div class="header">
+    <h2 style="margin:5px">Things to do</h2>
+    <input v-model="newTask" @keyup.enter="addTask" placeholder="Title...">
+    <span @click="addTask" class="addBtn">Add</span>
+  </div>
+
+  <ul>
+   
+    <li v-for="(task, index) in tasks" :key="index" :class="{ 'checked': task.completed }">
+      {{ task.title }}
+      <span @click="removeTask(index)" class="close">×</span>
+    </li>
+  </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script>
+new Vue({
+  el: '#app', // Mount Vue to the app container
+
+  data: {
+    newTask: '', // Stores the new task input
+    tasks: [ // Array to store tasks
+      { title: 'Hit the gym', completed: false },
+      { title: 'Pay bills', completed: true },
+      { title: 'Meet George', completed: false },
+      { title: 'Buy eggs', completed: false },
+      { title: 'Read a book', completed: false },
+      { title: 'Organize office', completed: false }
+    ]
+  },
+
+  methods: {
+    addTask: function() {
+      if (this.newTask.trim() !== '') {
+        this.tasks.push({ title: this.newTask, completed: false });
+        this.newTask = ''; // Clear input after adding
+      }
+    },
+
+    removeTask: function(index) {
+      this.tasks.splice(index, 1); // Remove task at the specified index
+    }
+  }
+});
+</script>
+
+</body>
+</html>
